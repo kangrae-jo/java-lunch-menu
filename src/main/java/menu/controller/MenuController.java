@@ -30,9 +30,15 @@ public class MenuController {
     private List<Coach> readCoachesName() {
         return retryUntilValid(() -> {
             String names = inputView.readCoachesName();
-            return Arrays.stream(names.split(","))
+            List<Coach> coaches = Arrays.stream(names.split(","))
                     .map(Coach::register)
                     .toList();
+
+            if (coaches.size() < 2 || coaches.size() > 5) {
+                throw new IllegalArgumentException("[ERROR] 코치는 최소 2명, 최대 5명까지 식사를 함께 합니다.");
+            }
+
+            return coaches;
         });
     }
 
