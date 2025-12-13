@@ -10,4 +10,5 @@ public record CoachNames(List<String> names) {
                 .map(Coach::name)
                 .toList());
     }
+
 }
