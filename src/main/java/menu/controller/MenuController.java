@@ -23,6 +23,7 @@ public class MenuController {
         readRestrictions(coaches);
 
         RecommendedResults results = makeMenuResult(coaches);
+        results.printResults();
     }
 
     private List<Coach> readCoachesName() {

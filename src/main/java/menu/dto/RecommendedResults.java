@@ -29,4 +29,17 @@ public class RecommendedResults {
         menus.get(index).put(coach, menu);
     }
 
+    public void printResults() {
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println("[카테고리] " + categories.get(i));
+
+            Map<String, String> coachMenus = menus.get(i);
+            for (Map.Entry<String, String> entry : coachMenus.entrySet()) {
+                System.out.println(entry.getKey() + " : " + entry.getValue());
+            }
+
+            System.out.println(); // 회차 구분용 공백
+        }
+    }
+
 }
