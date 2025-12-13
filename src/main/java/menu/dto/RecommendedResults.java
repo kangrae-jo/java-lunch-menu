@@ -12,35 +12,38 @@ public class RecommendedResults {
     private final List<Map<String, String>> menusByDay = new ArrayList<>();
 
     public void init(List<Coach> coaches) {
-        Map<String, String> coachAndMenu = new LinkedHashMap<>();
-
+        Map<String, String> emptyDay = new LinkedHashMap<>();
         for (Coach coach : coaches) {
-            coachAndMenu.put(coach.name(), null);
+            emptyDay.put(coach.name(), null);
         }
 
-        menusByDay.add(coachAndMenu);
+        menusByDay.add(emptyDay);
         categoriesByDay.add("");
     }
 
     public void addCategory(String category) {
         categoriesByDay.add(category);
+
+        // 카테고리 추가 == 새 날짜 시작 임으로 빈 리스트 추가
+        Map<String, String> newDay = new LinkedHashMap<>(menusByDay.get(0));
+        menusByDay.add(newDay);
     }
 
     public void addMenu(String coach, String menu) {
-        menusByDay.add(Map.of(coach, menu));
+        int today = menusByDay.size() - 1;
+        menusByDay.get(today).put(coach, menu);
     }
 
     public boolean canPickCategory(String category) {
         long count = categoriesByDay.stream()
                 .filter(c -> c.equals(category))
                 .count();
-
         return count < 2;
     }
 
     public boolean canPickMenu(String coach, String menu) {
         return menusByDay.stream()
-                .map(map -> map.get(coach))
+                .map(dayMap -> dayMap.get(coach))
                 .noneMatch(menu::equals);
     }
 
