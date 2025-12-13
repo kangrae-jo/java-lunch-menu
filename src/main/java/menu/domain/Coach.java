@@ -1,5 +1,6 @@
 package menu.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Coach {
@@ -10,6 +11,12 @@ public class Coach {
 
     private final String name;
     private final List<Menu> restrictions;
+
+    public Coach(String name) {
+        validateNameRange(name);
+        this.name = name;
+        this.restrictions = new ArrayList<>();
+    }
 
     public Coach(String name, List<String> restrictions) {
         validateNameRange(name);
