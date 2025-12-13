@@ -8,6 +8,7 @@ public class CategoryRepository {
     private final List<String> categories = new ArrayList<>();
 
     private CategoryRepository() {
+        categories.add("");
         categories.add("일식");
         categories.add("한식");
         categories.add("중식");
