@@ -17,15 +17,33 @@ public class PickService {
         this.menuRepository = menuRepository;
     }
 
-    // TODO: 이전 선택과 겹치는지 등의 validate 필요
     public void makeRecommend(RecommendedResults results, List<Coach> coaches) {
-        int index = Randoms.pickNumberInRange(1, 5);
+        int index = pickCategory(results);
         results.addCategory(categoryRepository.get(index));
 
         for (Coach coach : coaches) {
             List<String> menus = menuRepository.get(index);
-            String menu = Randoms.shuffle(menus).get(0);
+            String menu = pickMenu(results, coach, menus);
             results.addMenu(coach.name(), menu);
+        }
+    }
+
+    private int pickCategory(RecommendedResults results) {
+        while (true) {
+            int index = Randoms.pickNumberInRange(1, 5);
+            String category = categoryRepository.get(index);
+            if (results.canPickCategory(category)) {
+                return index;
+            }
+        }
+    }
+
+    private String pickMenu(RecommendedResults results, Coach coach, List<String> menus) {
+        while (true) {
+            String menu = Randoms.shuffle(menus).get(0);
+            if (results.canPickMenu(coach.name(), menu)) {
+                return menu;
+            }
         }
     }
 

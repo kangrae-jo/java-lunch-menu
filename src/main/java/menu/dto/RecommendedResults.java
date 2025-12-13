@@ -8,8 +8,8 @@ import menu.domain.Coach;
 
 public class RecommendedResults {
 
-    private final List<String> categories = new ArrayList<>();
-    private final List<Map<String, String>> menus = new ArrayList<>();
+    private final List<String> categoriesByDay = new ArrayList<>();
+    private final List<Map<String, String>> menusByDay = new ArrayList<>();
 
     public void init(List<Coach> coaches) {
         Map<String, String> coachAndMenu = new LinkedHashMap<>();
@@ -18,22 +18,36 @@ public class RecommendedResults {
             coachAndMenu.put(coach.name(), null);
         }
 
-        menus.add(coachAndMenu);
+        menusByDay.add(coachAndMenu);
     }
 
     public void addCategory(String category) {
-        categories.add(category);
+        categoriesByDay.add(category);
     }
 
     public void addMenu(String coach, String menu) {
-        menus.add(Map.of(coach, menu));
+        menusByDay.add(Map.of(coach, menu));
+    }
+
+    public boolean canPickCategory(String category) {
+        long count = categoriesByDay.stream()
+                .filter(c -> c.equals(category))
+                .count();
+
+        return count < 2;
+    }
+
+    public boolean canPickMenu(String coach, String menu) {
+        return menusByDay.stream()
+                .map(map -> map.get(coach))
+                .noneMatch(menu::equals);
     }
 
     public void printResults() {
-        for (int i = 0; i < categories.size(); i++) {
-            System.out.println("[카테고리] " + categories.get(i));
+        for (int i = 0; i < categoriesByDay.size(); i++) {
+            System.out.println("[카테고리] " + categoriesByDay.get(i));
 
-            Map<String, String> coachMenus = menus.get(i);
+            Map<String, String> coachMenus = menusByDay.get(i);
             for (Map.Entry<String, String> entry : coachMenus.entrySet()) {
                 System.out.println(entry.getKey() + " : " + entry.getValue());
             }
