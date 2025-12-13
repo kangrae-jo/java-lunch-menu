@@ -10,7 +10,7 @@ public class Coach {
     private final static int MAX_RESTRICTION_RANGE = 2;
 
     private final String name;
-    private final List<Menu> restrictions;
+    private final List<String> restrictions;
 
     private Coach(String name) {
         validateNameRange(name);
@@ -24,7 +24,11 @@ public class Coach {
 
     public boolean addRestrictions(List<String> restrictions) {
         validateRestrictionRange(restrictions);
-        return this.restrictions.addAll(Menu.from(restrictions));
+        return this.restrictions.addAll(restrictions);
+    }
+    
+    public String name() {
+        return name;
     }
 
     private void validateNameRange(String name) {

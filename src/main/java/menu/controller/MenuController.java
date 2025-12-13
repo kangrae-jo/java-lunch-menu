@@ -1,28 +1,28 @@
 package menu.controller;
 
-import camp.nextstep.edu.missionutils.Randoms;
-import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 import menu.domain.Coach;
-import menu.dto.MenuResult;
-import menu.dto.Recommend;
+import menu.dto.RecommendedResults;
+import menu.service.PickService;
 import menu.view.InputView;
 
 public class MenuController {
 
     private final InputView inputView;
+    private final PickService pickService;
 
-    public MenuController(InputView inputView) {
+    public MenuController(InputView inputView, PickService pickService) {
         this.inputView = inputView;
+        this.pickService = pickService;
     }
 
     public void run() {
         List<Coach> coaches = readCoachesName();
         readRestrictions(coaches);
 
-        makeMenuResult();
+        RecommendedResults results = makeMenuResult(coaches);
     }
 
     private List<Coach> readCoachesName() {
@@ -43,14 +43,15 @@ public class MenuController {
         }
     }
 
-    private void makeMenuResult() {
-        MenuResult menuResult = new MenuResult();
-        for (int day = 1; day <= 5; day++) {
-            Recommend recommend = new Recommend();
-            Category category = Category.pick(Randoms.pickNumberInRange(1, 5));
+    private RecommendedResults makeMenuResult(List<Coach> coaches) {
+        RecommendedResults results = new RecommendedResults();
+        results.init(coaches);
 
-            menuResult.put(DayOfWeek.of(day), recommend);
+        for (int day = 1; day <= 5; day++) {
+            pickService.makeRecommend(results, coaches);
         }
+
+        return results;
     }
 
     private <T> T retryUntilValid(Supplier<T> supplier) {

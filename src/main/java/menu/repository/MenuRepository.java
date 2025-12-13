@@ -19,4 +19,8 @@ public class MenuRepository {
         return new MenuRepository();
     }
 
+    public List<String> get(int index) {
+        return menus.get(index);
+    }
+
 }

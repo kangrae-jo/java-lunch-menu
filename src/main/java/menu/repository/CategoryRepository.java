@@ -19,4 +19,8 @@ public class CategoryRepository {
         return new CategoryRepository();
     }
 
+    public String get(int index) {
+        return categories.get(index);
+    }
+
 }
