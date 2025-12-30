@@ -12,9 +12,11 @@ public class Controller {
         this.inputView = inputView;
         this.outputView = outputView;
     }
-    
-    public void run() {
 
+    public void run() {
+        inputView.readDateOfVisit();
+        inputView.readOrderItems();
+        outputView.writeBenefitPreview();
     }
 
 }
