@@ -48,6 +48,14 @@ public class Order {
         return WeekendDiscount();
     }
 
+    public int specialDiscount() {
+        int dayOfWeek = date.getDayOfWeek().getValue();
+        if (dayOfWeek == 7 || date.isEqual(LocalDate.of(2023, 12, 25))) {
+            return 1_000;
+        }
+        return 0;
+    }
+
     private int WeekDaysDiscount() {
         List<OrderItem> dessertList = orderItems.stream()
                 .filter(orderItem -> orderItem.getCategory() == Category.DESSERT)
