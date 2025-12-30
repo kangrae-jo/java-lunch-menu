@@ -14,4 +14,16 @@ public class OrderItem {
         return menu.mul(amount);
     }
 
+    public int mul(int number) {
+        return amount * number;
+    }
+
+    public Category getCategory() {
+        return menu.getCategory();
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
 }

@@ -42,4 +42,8 @@ public enum Menu {
         return this.price * amount;
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
 }
