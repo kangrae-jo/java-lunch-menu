@@ -16,7 +16,9 @@ public enum Menu {
 
     COKE_ZERO("제로콜라", 3_000, Category.DRINK),
     RED_WINE("레드와인", 60_000, Category.DRINK),
-    CHAMPAGNE("샴페인", 25_000, Category.DRINK);
+    CHAMPAGNE("샴페인", 25_000, Category.DRINK),
+
+    NONE("없음", 0, Category.NONE);
 
     private final String korean;
     private final Integer price;
