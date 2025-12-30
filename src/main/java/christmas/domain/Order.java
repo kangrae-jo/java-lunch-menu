@@ -10,4 +10,10 @@ public class Order {
         this.orderItems = orderItems;
     }
 
+    public long calculateTotalPrice() {
+        return orderItems.stream()
+                .mapToLong(OrderItem::calculatePrice)
+                .sum();
+    }
+
 }

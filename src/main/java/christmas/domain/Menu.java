@@ -18,14 +18,28 @@ public enum Menu {
     RED_WINE("레드와인", 60_000, Category.DRINK),
     CHAMPAGNE("샴페인", 25_000, Category.DRINK);
 
-    private final String Korean;
+    private final String korean;
     private final Integer price;
     private final Category category;
 
     Menu(String korean, Integer price, Category category) {
-        Korean = korean;
+        this.korean = korean;
         this.price = price;
         this.category = category;
+    }
+
+    public static Menu from(String korean) {
+        for (Menu menu : Menu.values()) {
+            if (korean.equals(menu.korean)) {
+                return menu;
+            }
+        }
+
+        throw new IllegalArgumentException("[ERROR] 존재하지 않는 메뉴입니다.");
+    }
+
+    public Integer mul(int amount) {
+        return this.price * amount;
     }
 
 }
