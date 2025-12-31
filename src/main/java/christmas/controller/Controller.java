@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.Menu;
+import christmas.domain.Order;
 import christmas.domain.OrderItem;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -22,6 +23,7 @@ public class Controller {
     public void run() {
         LocalDate date = readDateOfVisit();
         List<OrderItem> orderItems = readOrderItems();
+        Order order = Order.from(date);
 
         outputView.writeBenefitPreviewMsg();
     }

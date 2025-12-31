@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class OrderTest {
 
     @Test
     void 총_주문_금액을_올바르게_계산하여_반환한다() {
-        Order order = Order.from(2023, 12, 26);
+        Order order = Order.from(LocalDate.of(2023, 12, 26));
         order.add(orderItems);
 
         long orderPrice = order.calculateTotalPrice();

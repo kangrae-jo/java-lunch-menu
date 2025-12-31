@@ -10,13 +10,13 @@ public class Order {
     private final LocalDate date;
     private final List<OrderItem> orderItems;
 
-    private Order(int year, int month, int date) {
-        this.date = LocalDate.of(year, month, date);
+    private Order(LocalDate localDate) {
+        this.date = localDate;
         this.orderItems = new ArrayList<>();
     }
 
-    public static Order from(int year, int month, int date) {
-        return new Order(year, month, date);
+    public static Order from(LocalDate localDate) {
+        return new Order(localDate);
     }
 
     public void add(List<OrderItem> orderItems) {
