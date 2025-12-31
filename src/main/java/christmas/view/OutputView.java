@@ -12,7 +12,13 @@ public class OutputView {
     }
 
     public void printNoBenefitMsg() {
-        System.out.println("<할인 미적용>");
+        System.out.println("<증정 메뉴>");
+        System.out.println("없음");
+        System.out.println();
+
+        System.out.println("<혜택 내역>");
+        System.out.println("없음");
+        System.out.println();
     }
 
     public void printBenefitInformation(OrderDto orderDto, GiftDto giftDto, BenefitResultDto benefitDto) {
@@ -20,13 +26,20 @@ public class OutputView {
         System.out.println();
 
         printOrderMenus(orderDto);
+
         long totalPrice = orderDto.totalPrice();
         printTotalPriceBeforeDiscount(totalPrice);
-        printGiftMenu(giftDto);
-        printBenefit(benefitDto);
 
         int totalDiscountPrice = benefitDto.calculateTotalDiscountPrice();
         int totalBenefitPrice = totalDiscountPrice + benefitDto.giftDiscount();
+        if (totalPrice < 10_000) {
+            printNoBenefitMsg();
+            totalDiscountPrice = 0;
+            totalBenefitPrice = 0;
+        } else {
+            printGiftMenu(giftDto);
+            printBenefit(benefitDto);
+        }
 
         printTotalBenefitPrice(totalBenefitPrice);
         printTotalPriceAfterDiscount(totalPrice, totalDiscountPrice);
@@ -43,7 +56,7 @@ public class OutputView {
 
     private void printTotalPriceBeforeDiscount(long totalPrice) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(totalPrice);
+        System.out.printf("%,d원\n", totalPrice);
         System.out.println();
     }
 
@@ -60,14 +73,14 @@ public class OutputView {
     }
 
     private void printTotalBenefitPrice(int totalBenefitPrice) {
-        System.out.println("<총 혜택 내역>");
-        System.out.println(-totalBenefitPrice);
+        System.out.println("<총 혜택 금액>");
+        System.out.printf("%,d원\n", -totalBenefitPrice);
         System.out.println();
     }
 
     private void printTotalPriceAfterDiscount(long totalPrice, int totalDiscountPrice) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(totalPrice - totalDiscountPrice);
+        System.out.printf("%,d원\n", totalPrice - totalDiscountPrice);
         System.out.println();
     }
 

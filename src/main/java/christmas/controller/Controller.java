@@ -27,14 +27,10 @@ public class Controller {
         LocalDate date = readDateOfVisit();
         Order order = readOrder(date);
 
-        if (order.calculateTotalPrice() < 10_000) {
-            outputView.printNoBenefitMsg();
-            return;
-        }
-
         OrderDto orderDto = OrderDto.from(order);
         GiftDto giftDto = GiftDto.from(order.giftDiscount());
         BenefitResultDto benefitResultDto = BenefitResultDto.from(order);
+
         outputView.printBenefitInformation(orderDto, giftDto, benefitResultDto);
     }
 
