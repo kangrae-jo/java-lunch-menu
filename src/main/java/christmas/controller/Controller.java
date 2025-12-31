@@ -23,7 +23,7 @@ public class Controller {
     public void run() {
         LocalDate date = readDateOfVisit();
         List<OrderItem> orderItems = readOrderItems();
-        Order order = Order.from(date);
+        Order order = new Order(date, orderItems);
 
         outputView.writeBenefitPreviewMsg();
     }

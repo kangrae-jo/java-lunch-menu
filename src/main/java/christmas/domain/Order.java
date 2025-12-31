@@ -2,7 +2,6 @@ package christmas.domain;
 
 import christmas.domain.discount.ChristmasDiscount;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -10,13 +9,9 @@ public class Order {
     private final LocalDate date;
     private final List<OrderItem> orderItems;
 
-    private Order(LocalDate localDate) {
-        this.date = localDate;
-        this.orderItems = new ArrayList<>();
-    }
-
-    public static Order from(LocalDate localDate) {
-        return new Order(localDate);
+    public Order(LocalDate date, List<OrderItem> orderItems) {
+        this.date = date;
+        this.orderItems = orderItems;
     }
 
     public void add(List<OrderItem> orderItems) {

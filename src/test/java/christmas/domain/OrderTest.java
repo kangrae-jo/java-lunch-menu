@@ -15,8 +15,7 @@ class OrderTest {
 
     @Test
     void 총_주문_금액을_올바르게_계산하여_반환한다() {
-        Order order = Order.from(LocalDate.of(2023, 12, 26));
-        order.add(orderItems);
+        Order order = new Order(LocalDate.of(2023, 12, 26), orderItems);
 
         long orderPrice = order.calculateTotalPrice();
 
