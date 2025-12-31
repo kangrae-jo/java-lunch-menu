@@ -28,9 +28,9 @@ public class Controller {
         List<OrderItem> orderItems = readOrderItems();
         Order order = new Order(date, orderItems);
 
+        OrderDto orderDto = OrderDto.from(order);
         GiftDto giftDto = GiftDto.from(order.giftDiscount());
         BenefitResultDto benefitResultDto = BenefitResultDto.from(order);
-        OrderDto orderDto = OrderDto.from(order);
 
         outputView.printBenefitInformation(orderDto, giftDto, benefitResultDto);
     }

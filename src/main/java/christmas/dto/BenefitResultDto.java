@@ -20,4 +20,8 @@ public record BenefitResultDto(
         );
     }
 
+    public int calculateTotalDiscountPrice() {
+        return christmasDiscount + weekdaysDiscount + weekendDiscount + specialDiscount;
+    }
+
 }

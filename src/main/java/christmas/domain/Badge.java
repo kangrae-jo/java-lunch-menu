@@ -15,9 +15,9 @@ public enum Badge {
         this.threshold = threshold;
     }
 
-    public static Badge from(int discountAmount) {
+    public static Badge from(int amount) {
         for (Badge badge : Badge.values()) {
-            if (badge.threshold <= discountAmount) {
+            if (badge.threshold <= amount) {
                 return badge;
             }
         }
