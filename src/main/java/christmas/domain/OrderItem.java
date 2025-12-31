@@ -34,7 +34,7 @@ public class OrderItem {
 
     private void validateAmount(int amount) {
         if (amount <= 0) {
-            throw new IllegalArgumentException("0개 이하는 주문할 수 없습니다.");
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
