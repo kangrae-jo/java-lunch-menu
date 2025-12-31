@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.Badge;
 import christmas.dto.BenefitResultDto;
 import christmas.dto.GiftDto;
 import christmas.dto.OrderDto;
@@ -46,6 +47,7 @@ public class OutputView {
         System.out.println();
 
         System.out.println("<12월 이벤트 배지>");
+        System.out.println(Badge.from(totalBenefitPrice + benefitDto.getGiftDiscount()).getKorean());
         System.out.println();
     }
 

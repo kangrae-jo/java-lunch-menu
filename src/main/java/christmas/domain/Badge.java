@@ -17,11 +17,15 @@ public enum Badge {
 
     public static Badge from(int discountAmount) {
         for (Badge badge : Badge.values()) {
-            if (badge.threshold >= discountAmount) {
+            if (badge.threshold <= discountAmount) {
                 return badge;
             }
         }
         return NONE;
+    }
+
+    public String getKorean() {
+        return korean;
     }
 
 }
