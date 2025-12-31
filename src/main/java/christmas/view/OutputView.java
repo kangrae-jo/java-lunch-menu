@@ -7,12 +7,17 @@ import christmas.dto.OrderDto;
 
 public class OutputView {
 
+    public void printErrorMsg(String msg) {
+        System.out.println("[ERROR] " + msg);
+    }
+
     public void printBenefitInformation(OrderDto orderDto, GiftDto giftDto, BenefitResultDto benefitDto) {
         System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println();
 
         printOrderMenus(orderDto);
-        printTotalPriceBeforeDiscount(orderDto);
+        long totalPrice = orderDto.totalPrice();
+        printTotalPriceBeforeDiscount(totalPrice);
         printGiftMenu(giftDto);
         printBenefit(benefitDto);
 
@@ -20,12 +25,8 @@ public class OutputView {
         int totalBenefitPrice = totalDiscountPrice + benefitDto.giftDiscount();
 
         printTotalBenefitPrice(totalBenefitPrice);
-        printTotalPriceAfterDiscount(orderDto, totalDiscountPrice);
+        printTotalPriceAfterDiscount(totalPrice, totalDiscountPrice);
         printBadge(totalBenefitPrice);
-    }
-
-    public void printErrorMsg(String msg) {
-        System.out.println("[ERROR] " + msg);
     }
 
     private void printOrderMenus(OrderDto orderDto) {
@@ -36,9 +37,9 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printTotalPriceBeforeDiscount(OrderDto orderDto) {
+    private void printTotalPriceBeforeDiscount(long totalPrice) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(orderDto.totalPrice());
+        System.out.println(totalPrice);
         System.out.println();
     }
 
@@ -64,9 +65,9 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printTotalPriceAfterDiscount(OrderDto orderDto, int totalDiscountPrice) {
+    private void printTotalPriceAfterDiscount(long totalPrice, int totalDiscountPrice) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(orderDto.totalPrice() - totalDiscountPrice);
+        System.out.println(totalPrice - totalDiscountPrice);
         System.out.println();
     }
 
