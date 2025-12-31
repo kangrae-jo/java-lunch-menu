@@ -26,6 +26,7 @@ public class Controller {
         Order order = new Order(date, orderItems);
 
         outputView.writeBenefitPreviewMsg();
+
     }
 
     private LocalDate readDateOfVisit() {

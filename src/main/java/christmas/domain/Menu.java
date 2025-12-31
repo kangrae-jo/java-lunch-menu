@@ -44,6 +44,14 @@ public enum Menu {
         return this.price * amount;
     }
 
+    public String getKorean() {
+        return korean;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
     public Category getCategory() {
         return this.category;
     }

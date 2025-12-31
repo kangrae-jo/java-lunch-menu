@@ -35,14 +35,6 @@ public class Order {
         return ChristmasDiscount.discount(date);
     }
 
-    public int dayDiscount() {
-        int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek % 7 >= 4) {
-            return WeekDaysDiscount();
-        }
-        return WeekendDiscount();
-    }
-
     public int specialDiscount() {
         int dayOfWeek = date.getDayOfWeek().getValue();
         if (dayOfWeek == 7 || date.isEqual(LocalDate.of(2023, 12, 25))) {
@@ -51,7 +43,12 @@ public class Order {
         return 0;
     }
 
-    private int WeekDaysDiscount() {
+    public int weekDaysDiscount() {
+        int dayOfWeek = date.getDayOfWeek().getValue();
+        if (dayOfWeek % 7 >= 4) {
+            return 0;
+        }
+
         List<OrderItem> dessertList = orderItems.stream()
                 .filter(orderItem -> orderItem.getCategory() == Category.DESSERT)
                 .toList();
@@ -61,7 +58,12 @@ public class Order {
                 .sum() * 2023;
     }
 
-    private int WeekendDiscount() {
+    public int weekendDiscount() {
+        int dayOfWeek = date.getDayOfWeek().getValue();
+        if (dayOfWeek % 7 < 4) {
+            return 0;
+        }
+
         List<OrderItem> dessertList = orderItems.stream()
                 .filter(orderItem -> orderItem.getCategory() == Category.MAIN)
                 .toList();
