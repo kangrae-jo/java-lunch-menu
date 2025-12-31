@@ -11,6 +11,10 @@ public class OutputView {
         System.out.println("[ERROR] " + msg);
     }
 
+    public void printNoBenefitMsg() {
+        System.out.println("<할인 미적용>");
+    }
+
     public void printBenefitInformation(OrderDto orderDto, GiftDto giftDto, BenefitResultDto benefitDto) {
         System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println();
