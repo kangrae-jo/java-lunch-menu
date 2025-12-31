@@ -73,4 +73,8 @@ public class Order {
                 .sum() * 2023;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
 }

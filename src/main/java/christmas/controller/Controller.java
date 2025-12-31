@@ -5,6 +5,7 @@ import christmas.domain.Order;
 import christmas.domain.OrderItem;
 import christmas.dto.BenefitResultDto;
 import christmas.dto.GiftDto;
+import christmas.dto.OrderDto;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.time.LocalDate;
@@ -29,8 +30,9 @@ public class Controller {
 
         GiftDto giftDto = GiftDto.from(order.giftDiscount());
         BenefitResultDto benefitResultDto = BenefitResultDto.from(order);
-        outputView.printBenefitInformation(giftDto, benefitResultDto);
+        OrderDto orderDto = OrderDto.from(order);
 
+        outputView.printBenefitInformation(orderDto, giftDto, benefitResultDto);
     }
 
     private LocalDate readDateOfVisit() {

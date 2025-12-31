@@ -2,20 +2,23 @@ package christmas.view;
 
 import christmas.dto.BenefitResultDto;
 import christmas.dto.GiftDto;
+import christmas.dto.OrderDto;
 
 public class OutputView {
 
-    public void printBenefitPreviewMsg() {
-        System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
-    }
-
-    public void printBenefitInformation(GiftDto giftDto, BenefitResultDto benefitDto) {
+    public void printBenefitInformation(OrderDto orderDto, GiftDto giftDto, BenefitResultDto benefitDto) {
         System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println();
-        
+
         System.out.println("<주문 메뉴>");
+        for (String order : orderDto.getOrderItems()) {
+            System.out.println(order);
+        }
+        System.out.println();
 
         System.out.println("<할인 전 총주문 금액>");
+        System.out.println(orderDto.getTotalPrice());
+        System.out.println();
 
         System.out.println("<증정 메뉴>");
         System.out.println(giftDto.getMenu() + " " + giftDto.getAmount() + "개");
@@ -32,17 +35,18 @@ public class OutputView {
         int totalBenefitPrice = benefitDto.getChristmasDiscount() +
                 benefitDto.getWeekdaysDiscount() +
                 benefitDto.getWeekendDiscount() +
-                benefitDto.getSpecialDiscount() +
-                benefitDto.getGiftDiscount();
+                benefitDto.getSpecialDiscount();
 
         System.out.println("<총 혜택 내역>");
-        System.out.println(-totalBenefitPrice);
+        System.out.println(-totalBenefitPrice - benefitDto.getGiftDiscount());
         System.out.println();
 
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(-totalBenefitPrice);
+        System.out.println(orderDto.getTotalPrice() - totalBenefitPrice);
+        System.out.println();
 
         System.out.println("<12월 이벤트 배지>");
+        System.out.println();
     }
 
     public void printErrorMsg(String msg) {

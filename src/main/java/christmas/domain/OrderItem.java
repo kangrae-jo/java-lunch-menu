@@ -27,6 +27,11 @@ public class OrderItem {
         return amount;
     }
 
+    @Override
+    public String toString() {
+        return menu.getKorean() + " " + amount + "개";
+    }
+
     private void validateAmount(int amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("0개 이하는 주문할 수 없습니다.");
