@@ -4,8 +4,8 @@ import christmas.domain.Menu;
 
 public class GiftDto {
 
-    private String menu;
-    private int amount;
+    private final String menu;
+    private final int amount;
 
     public GiftDto(String menu) {
         this.menu = menu;
