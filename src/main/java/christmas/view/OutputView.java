@@ -49,7 +49,7 @@ public class OutputView {
 
     private void printGiftMenu(GiftDto giftDto) {
         System.out.println("<증정 메뉴>");
-        System.out.println(giftDto.getMenu() + " " + giftDto.getAmount() + "개");
+        System.out.println(giftDto.toString());
         System.out.println();
     }
 
