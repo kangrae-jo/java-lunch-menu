@@ -6,8 +6,9 @@ public class OrderItem {
     private final int amount;
 
     public OrderItem(Menu menu, Integer amount) {
-        this.menu = menu;
+        validateAmount(amount);
         this.amount = amount;
+        this.menu = menu;
     }
 
     public Integer calculatePrice() {
@@ -24,6 +25,12 @@ public class OrderItem {
 
     public int getAmount() {
         return amount;
+    }
+
+    private void validateAmount(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("0개 이하는 주문할 수 없습니다.");
+        }
     }
 
 }

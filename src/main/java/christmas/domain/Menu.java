@@ -37,7 +37,7 @@ public enum Menu {
             }
         }
 
-        throw new IllegalArgumentException("[ERROR] 존재하지 않는 메뉴입니다.");
+        throw new IllegalArgumentException("존재하지 않는 메뉴입니다.");
     }
 
     public Integer mul(int amount) {

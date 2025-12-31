@@ -41,11 +41,11 @@ public class Controller {
             List<OrderItem> orderItems = new ArrayList<>();
             for (String orderItem : splitOrderItems) {
                 String[] menuAndAmount = orderItem.split("-");
-                Menu menu = Menu.from(menuAndAmount[0]);
+                Menu menu = Menu.from(menuAndAmount[0].strip());
                 Integer amount = Integer.parseInt(menuAndAmount[1]);
                 orderItems.add(new OrderItem(menu, amount));
             }
-            
+
             return orderItems;
         });
     }
