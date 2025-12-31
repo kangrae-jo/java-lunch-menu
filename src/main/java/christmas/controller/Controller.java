@@ -30,6 +30,7 @@ public class Controller {
         Order order = new Order(date, orderItems);
         if (order.calculateTotalPrice() < 10_000) {
             outputView.printNoBenefitMsg();
+            return;
         }
 
         OrderDto orderDto = OrderDto.from(order);
