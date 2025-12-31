@@ -25,9 +25,8 @@ public class Controller {
 
     public void run() {
         LocalDate date = readDateOfVisit();
-        List<OrderItem> orderItems = readOrderItems();
+        Order order = readOrder(date);
 
-        Order order = new Order(date, orderItems);
         if (order.calculateTotalPrice() < 10_000) {
             outputView.printNoBenefitMsg();
             return;
@@ -43,6 +42,13 @@ public class Controller {
         return retryUntilValid(() -> {
             String date = inputView.readDateOfVisit();
             return LocalDate.of(2023, 12, Integer.parseInt(date));
+        });
+    }
+
+    private Order readOrder(LocalDate date) {
+        return retryUntilValid(() -> {
+            List<OrderItem> orderItems = readOrderItems();
+            return new Order(date, orderItems);
         });
     }
 

@@ -27,6 +27,10 @@ public class OrderItem {
         return amount;
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
+
     @Override
     public String toString() {
         return menu.getKorean() + " " + amount + "개";

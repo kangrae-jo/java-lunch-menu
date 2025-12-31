@@ -2,7 +2,9 @@ package christmas.domain;
 
 import christmas.domain.discount.ChristmasDiscount;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Order {
 
@@ -10,8 +12,11 @@ public class Order {
     private final List<OrderItem> orderItems;
 
     public Order(LocalDate date, List<OrderItem> orderItems) {
-        this.date = date;
+        validateUniqueMenu(orderItems);
+        validateMaxOrderAmount(orderItems);
+        validateOnlyDrink(orderItems);
         this.orderItems = orderItems;
+        this.date = date;
     }
 
     public void add(List<OrderItem> orderItems) {
@@ -75,6 +80,37 @@ public class Order {
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    private void validateUniqueMenu(List<OrderItem> orderItems) {
+        Set<Menu> menus = new HashSet<>();
+        for (OrderItem orderItem : orderItems) {
+            menus.add(orderItem.getMenu());
+        }
+
+        if (menus.size() != orderItems.size()) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private void validateMaxOrderAmount(List<OrderItem> orderItems) {
+        int orderAmount = orderItems.stream()
+                .mapToInt(OrderItem::getAmount)
+                .sum();
+
+        if (orderAmount > 20) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private void validateOnlyDrink(List<OrderItem> orderItems) {
+        int drinkCount = (int) orderItems.stream()
+                .filter(orderItem -> orderItem.getCategory() == Category.DRINK)
+                .count();
+        
+        if (drinkCount == orderItems.size()) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
 }
