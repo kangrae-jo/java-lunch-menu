@@ -1,8 +1,12 @@
 package christmas.controller;
 
+import christmas.domain.Menu;
+import christmas.domain.OrderItem;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class Controller {
@@ -17,7 +21,7 @@ public class Controller {
 
     public void run() {
         LocalDate date = readDateOfVisit();
-        String orderItems = inputView.readOrderItems();
+        List<OrderItem> orderItems = readOrderItems();
 
         outputView.writeBenefitPreviewMsg();
     }
@@ -26,6 +30,23 @@ public class Controller {
         return retryUntilValid(() -> {
             String date = inputView.readDateOfVisit();
             return LocalDate.of(2023, 12, Integer.parseInt(date));
+        });
+    }
+
+    private List<OrderItem> readOrderItems() {
+        return retryUntilValid(() -> {
+            String rawOrderItems = inputView.readOrderItems();
+            String[] splitOrderItems = rawOrderItems.split(",");
+
+            List<OrderItem> orderItems = new ArrayList<>();
+            for (String orderItem : splitOrderItems) {
+                String[] menuAndAmount = orderItem.split("-");
+                Menu menu = Menu.from(menuAndAmount[0]);
+                Integer amount = Integer.parseInt(menuAndAmount[1]);
+                orderItems.add(new OrderItem(menu, amount));
+            }
+            
+            return orderItems;
         });
     }
 
