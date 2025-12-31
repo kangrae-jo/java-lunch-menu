@@ -50,7 +50,7 @@ public class Order {
 
     public int weekDaysDiscount() {
         int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek % 7 >= 4) {
+        if (dayOfWeek % 7 < 4) {
             return 0;
         }
 
@@ -65,7 +65,7 @@ public class Order {
 
     public int weekendDiscount() {
         int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek % 7 < 4) {
+        if (dayOfWeek % 7 >= 4) {
             return 0;
         }
 
@@ -107,7 +107,7 @@ public class Order {
         int drinkCount = (int) orderItems.stream()
                 .filter(orderItem -> orderItem.getCategory() == Category.DRINK)
                 .count();
-        
+
         if (drinkCount == orderItems.size()) {
             throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }

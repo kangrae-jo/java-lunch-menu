@@ -55,11 +55,7 @@ public class OutputView {
 
     private void printBenefit(BenefitResultDto benefitDto) {
         System.out.println("<혜택 내역>");
-        System.out.println("크리스마스 디데이 할인: " + benefitDto.christmasDiscount());
-        System.out.println("평일 할인: " + benefitDto.weekdaysDiscount());
-        System.out.println("주말 할인: " + benefitDto.weekendDiscount());
-        System.out.println("특별 할인: " + benefitDto.specialDiscount());
-        System.out.println("증정 이벤트: " + benefitDto.giftDiscount());
+        System.out.println(benefitDto.toString());
         System.out.println();
     }
 
