@@ -3,6 +3,8 @@ package christmas.controller;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.OrderItem;
+import christmas.dto.BenefitResultDto;
+import christmas.dto.GiftDto;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.time.LocalDate;
@@ -25,7 +27,9 @@ public class Controller {
         List<OrderItem> orderItems = readOrderItems();
         Order order = new Order(date, orderItems);
 
-        outputView.writeBenefitPreviewMsg();
+        GiftDto giftDto = GiftDto.from(order.giftDiscount());
+        BenefitResultDto benefitResultDto = BenefitResultDto.from(order);
+        outputView.printBenefitInformation(giftDto, benefitResultDto);
 
     }
 

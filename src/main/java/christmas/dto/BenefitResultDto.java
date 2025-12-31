@@ -29,4 +29,24 @@ public class BenefitResultDto {
         );
     }
 
+    public int getChristmasDiscount() {
+        return christmasDiscount;
+    }
+
+    public int getWeekdaysDiscount() {
+        return weekdaysDiscount;
+    }
+
+    public int getWeekendDiscount() {
+        return weekendDiscount;
+    }
+
+    public int getSpecialDiscount() {
+        return specialDiscount;
+    }
+
+    public int getGiftDiscount() {
+        return giftDiscount;
+    }
+
 }
