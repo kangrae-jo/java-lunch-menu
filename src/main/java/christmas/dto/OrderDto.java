@@ -6,6 +6,7 @@ import java.util.List;
 
 public record OrderDto(
         List<String> orderItems,
+        int date,
         long totalPrice
 ) {
 
@@ -14,7 +15,7 @@ public record OrderDto(
                 .map(OrderItem::toString)
                 .toList();
 
-        return new OrderDto(orders, order.calculateTotalPrice());
+        return new OrderDto(orders, order.getDate(), order.calculateTotalPrice());
     }
 
 }

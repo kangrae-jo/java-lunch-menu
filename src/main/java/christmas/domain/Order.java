@@ -76,6 +76,10 @@ public class Order {
                 .sum() * 2023;
     }
 
+    public int getDate() {
+        return date.getDayOfMonth();
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
