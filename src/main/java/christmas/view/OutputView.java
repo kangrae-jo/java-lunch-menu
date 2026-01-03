@@ -73,7 +73,7 @@ public class OutputView {
     }
 
     private void printTotalBenefitPrice(int totalBenefitPrice) {
-        System.out.println("<총 혜택 금액>");
+        System.out.println("<총혜택 금액>");
         System.out.printf("%,d원\n", -totalBenefitPrice);
         System.out.println();
     }
