@@ -58,7 +58,7 @@ public class Controller {
         while (true) {
             try {
                 return supplier.get();
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printErrorMsg(e.getMessage());
             }
         }
