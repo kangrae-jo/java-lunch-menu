@@ -2,6 +2,7 @@ package christmas.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,10 +13,11 @@ public class Order {
     private final List<OrderItem> orderItems;
 
     public Order(LocalDate date, List<OrderItem> orderItems) {
-        validateUniqueMenu(orderItems);
-        validateMaxOrderAmount(orderItems);
-        validateOnlyDrink(orderItems);
-        this.orderItems = orderItems;
+        List<OrderItem> copy = new ArrayList<>(orderItems);
+        validateUniqueMenu(copy);
+        validateMaxOrderAmount(copy);
+        validateOnlyDrink(copy);
+        this.orderItems = copy;
         this.date = date;
     }
 
@@ -81,7 +83,7 @@ public class Order {
     }
 
     public List<OrderItem> getOrderItems() {
-        return orderItems;
+        return List.copyOf(orderItems);
     }
 
     private boolean isWeekend() {
