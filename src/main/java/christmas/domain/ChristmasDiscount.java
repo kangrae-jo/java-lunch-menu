@@ -9,7 +9,7 @@ public class ChristmasDiscount {
     private final static int ADDITIONAL_DISCOUNT_MONEY = 100;
 
     public static int discount(LocalDate date) {
-        if (date.isBefore(CHRISTMAS)) {
+        if (!date.isAfter(CHRISTMAS)) {
             return INIT_DISCOUNT_MONEY + ADDITIONAL_DISCOUNT_MONEY * (date.getDayOfMonth() - 1);
         }
         return 0;
