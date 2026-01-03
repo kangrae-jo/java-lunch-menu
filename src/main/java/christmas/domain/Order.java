@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -48,8 +49,7 @@ public class Order {
     }
 
     public int weekDaysDiscount() {
-        int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek % 7 < 4) {
+        if (!isWeekend()) {
             return 0;
         }
 
@@ -63,8 +63,7 @@ public class Order {
     }
 
     public int weekendDiscount() {
-        int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek % 7 >= 4) {
+        if (isWeekend()) {
             return 0;
         }
 
@@ -79,6 +78,11 @@ public class Order {
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    private boolean isWeekend() {
+        DayOfWeek day = date.getDayOfWeek();
+        return day == DayOfWeek.FRIDAY || day == DayOfWeek.SATURDAY;
     }
 
     private void validateUniqueMenu(List<OrderItem> orderItems) {
