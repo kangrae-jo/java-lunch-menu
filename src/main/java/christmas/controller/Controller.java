@@ -6,6 +6,7 @@ import christmas.dto.BenefitResultDto;
 import christmas.dto.GiftDto;
 import christmas.dto.OrderDto;
 import christmas.parser.InputParser;
+import christmas.policy.DiscountCalculator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.time.LocalDate;
@@ -17,11 +18,14 @@ public class Controller {
     private final InputView inputView;
     private final OutputView outputView;
     private final InputParser inputParser;
+    private final DiscountCalculator discountCalculator;
 
-    public Controller(InputView inputView, OutputView outputView, InputParser inputParser) {
+    public Controller(InputView inputView, OutputView outputView, InputParser inputParser,
+                      DiscountCalculator discountCalculator) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.inputParser = inputParser;
+        this.discountCalculator = discountCalculator;
     }
 
     public void run() {
@@ -30,7 +34,7 @@ public class Controller {
 
         OrderDto orderDto = OrderDto.from(order);
         GiftDto giftDto = GiftDto.from(order.giftDiscount());
-        BenefitResultDto benefitResultDto = BenefitResultDto.from(order);
+        BenefitResultDto benefitResultDto = discountCalculator.calculate(order);
 
         outputView.printBenefitInformation(orderDto, giftDto, benefitResultDto);
     }

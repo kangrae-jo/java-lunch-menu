@@ -2,14 +2,21 @@ package christmas.config;
 
 import christmas.controller.Controller;
 import christmas.parser.InputParser;
+import christmas.policy.ChristmasDiscountPolicy;
+import christmas.policy.DiscountCalculator;
+import christmas.policy.SpecialDiscountPolicy;
+import christmas.policy.WeekdayDiscountPolicy;
+import christmas.policy.WeekendDiscountPolicy;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.List;
 
 public class AppConfig {
 
     private InputView inputView;
     private OutputView outputView;
     private InputParser inputParser;
+    private DiscountCalculator discountCalculator;
     private Controller controller;
 
     public AppConfig() {
@@ -38,9 +45,21 @@ public class AppConfig {
 
     public Controller controller() {
         if (controller == null) {
-            controller = new Controller(inputView(), outputView(), inputParser());
+            controller = new Controller(inputView(), outputView(), inputParser(), discountCalculator());
         }
         return controller;
+    }
+
+    public DiscountCalculator discountCalculator() {
+        if (discountCalculator == null) {
+            discountCalculator = new DiscountCalculator(List.of(
+                    new ChristmasDiscountPolicy(),
+                    new WeekdayDiscountPolicy(),
+                    new WeekendDiscountPolicy(),
+                    new SpecialDiscountPolicy()
+            ));
+        }
+        return discountCalculator;
     }
 
 }

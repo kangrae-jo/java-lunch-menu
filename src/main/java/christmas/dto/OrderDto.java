@@ -15,7 +15,7 @@ public record OrderDto(
                 .map(OrderItem::toString)
                 .toList();
 
-        return new OrderDto(orders, order.getDate(), order.calculateTotalPrice());
+        return new OrderDto(orders, order.getDate().getDayOfMonth(), order.calculateTotalPrice());
     }
 
 }

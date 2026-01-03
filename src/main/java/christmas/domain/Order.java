@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,57 +37,12 @@ public class Order {
         return Menu.NONE;
     }
 
-    public int christmasDiscount() {
-        return ChristmasDiscount.discount(date);
-    }
-
-    public int specialDiscount() {
-        int dayOfWeek = date.getDayOfWeek().getValue();
-        if (dayOfWeek == 7 || date.isEqual(LocalDate.of(2023, 12, 25))) {
-            return 1_000;
-        }
-        return 0;
-    }
-
-    public int weekDaysDiscount() {
-        if (!isWeekend()) {
-            return 0;
-        }
-
-        List<OrderItem> dessertList = orderItems.stream()
-                .filter(orderItem -> orderItem.getCategory() == Category.DESSERT)
-                .toList();
-
-        return dessertList.stream()
-                .mapToInt(OrderItem::getAmount)
-                .sum() * 2023;
-    }
-
-    public int weekendDiscount() {
-        if (isWeekend()) {
-            return 0;
-        }
-
-        List<OrderItem> dessertList = orderItems.stream()
-                .filter(orderItem -> orderItem.getCategory() == Category.MAIN)
-                .toList();
-
-        return dessertList.stream()
-                .mapToInt(OrderItem::getAmount)
-                .sum() * 2023;
-    }
-
-    public int getDate() {
-        return date.getDayOfMonth();
+    public LocalDate getDate() {
+        return date;
     }
 
     public List<OrderItem> getOrderItems() {
         return List.copyOf(orderItems);
-    }
-
-    private boolean isWeekend() {
-        DayOfWeek day = date.getDayOfWeek();
-        return day == DayOfWeek.FRIDAY || day == DayOfWeek.SATURDAY;
     }
 
     private void validateUniqueMenu(List<OrderItem> orderItems) {
