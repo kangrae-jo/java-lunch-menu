@@ -1,4 +1,4 @@
-package christmas.policy;
+package christmas.service;
 
 import christmas.domain.Order;
 import java.time.DayOfWeek;

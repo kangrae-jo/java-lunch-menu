@@ -1,29 +1,29 @@
-package christmas.policy;
+package christmas.service;
 
 import christmas.domain.Category;
 import christmas.domain.Order;
 import christmas.domain.OrderItem;
 import java.time.DayOfWeek;
 
-public class WeekendDiscountPolicy implements DiscountPolicy {
+public class WeekdayDiscountPolicy implements DiscountPolicy {
 
     @Override
     public DiscountType type() {
-        return DiscountType.WEEKEND;
+        return DiscountType.WEEKDAY;
     }
 
     @Override
     public int discount(Order order) {
         DayOfWeek day = order.getDate().getDayOfWeek();
-        if (day != DayOfWeek.FRIDAY && day != DayOfWeek.SATURDAY) {
+        if (day == DayOfWeek.FRIDAY || day == DayOfWeek.SATURDAY) {
             return 0;
         }
 
-        int mainCount = order.getOrderItems().stream()
-                .filter(orderItem -> orderItem.getCategory() == Category.MAIN)
+        int dessertCount = order.getOrderItems().stream()
+                .filter(orderItem -> orderItem.getCategory() == Category.DESSERT)
                 .mapToInt(OrderItem::getAmount)
                 .sum();
-        return mainCount * 2023;
+        return dessertCount * 2023;
     }
 
 }

@@ -2,11 +2,11 @@ package christmas.config;
 
 import christmas.controller.Controller;
 import christmas.parser.InputParser;
-import christmas.policy.ChristmasDiscountPolicy;
-import christmas.policy.DiscountCalculator;
-import christmas.policy.SpecialDiscountPolicy;
-import christmas.policy.WeekdayDiscountPolicy;
-import christmas.policy.WeekendDiscountPolicy;
+import christmas.service.ChristmasDiscountPolicy;
+import christmas.service.DiscountCalculator;
+import christmas.service.SpecialDiscountPolicy;
+import christmas.service.WeekdayDiscountPolicy;
+import christmas.service.WeekendDiscountPolicy;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.List;

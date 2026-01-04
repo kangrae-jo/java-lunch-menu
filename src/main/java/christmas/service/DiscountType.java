@@ -1,4 +1,4 @@
-package christmas.policy;
+package christmas.service;
 
 public enum DiscountType {
 

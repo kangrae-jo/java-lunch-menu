@@ -6,7 +6,7 @@ import christmas.dto.BenefitResultDto;
 import christmas.dto.GiftDto;
 import christmas.dto.OrderDto;
 import christmas.parser.InputParser;
-import christmas.policy.DiscountCalculator;
+import christmas.service.DiscountCalculator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.time.LocalDate;
