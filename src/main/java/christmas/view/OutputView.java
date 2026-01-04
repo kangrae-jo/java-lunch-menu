@@ -19,10 +19,10 @@ public class OutputView {
         long totalPrice = orderDto.totalPrice();
         printTotalPriceBeforeDiscount(totalPrice);  // 총주문 금액
         printGiftMenu(giftDto);                     // 증정 메뉴
-        printBenefit(benefitDto);                   // 혜택 내역
+        printBenefit(giftDto, benefitDto);                   // 혜택 내역
 
         int totalDiscountPrice = benefitDto.calculateTotalDiscountPrice();
-        int totalBenefitPrice = totalDiscountPrice + benefitDto.giftDiscount();
+        int totalBenefitPrice = totalDiscountPrice + giftDto.giftDiscount();
         printTotalBenefitPrice(totalBenefitPrice);                      // 총 혜택 금액
         printTotalPriceAfterDiscount(totalPrice, totalDiscountPrice);   // 할인 후 예상 결제 금액
         printBadge(totalBenefitPrice);                                  // 12월 이벤트 배지
@@ -48,9 +48,10 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printBenefit(BenefitResultDto benefitDto) {
+    private void printBenefit(GiftDto giftDto, BenefitResultDto benefitDto) {
         System.out.println("<혜택 내역>");
         System.out.println(benefitDto.toString());
+        System.out.println(giftDto.toBenefit());
         System.out.println();
     }
 

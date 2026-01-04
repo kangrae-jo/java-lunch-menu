@@ -30,13 +30,6 @@ public class Order {
                 .sum();
     }
 
-    public Menu giftDiscount() {
-        if (calculateTotalPrice() >= 120_000) {
-            return Menu.CHAMPAGNE;
-        }
-        return Menu.NONE;
-    }
-
     public LocalDate getDate() {
         return date;
     }

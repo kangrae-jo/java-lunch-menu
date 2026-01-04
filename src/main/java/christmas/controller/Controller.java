@@ -33,8 +33,8 @@ public class Controller {
         Order order = readOrder(date);
 
         OrderDto orderDto = OrderDto.from(order);
-        GiftDto giftDto = GiftDto.from(order.giftDiscount());
-        BenefitResultDto benefitResultDto = discountCalculator.calculate(order);
+        GiftDto giftDto = discountCalculator.calculateGiftBenefit(order);
+        BenefitResultDto benefitResultDto = discountCalculator.calculateDiscounts(order);
 
         outputView.printBenefitInformation(orderDto, giftDto, benefitResultDto);
     }

@@ -1,40 +1,40 @@
 package christmas.dto;
 
+import christmas.service.DiscountType;
+import java.util.EnumMap;
+import java.util.StringJoiner;
+
 public record BenefitResultDto(
-        int christmasDiscount,
-        int weekdaysDiscount,
-        int weekendDiscount,
-        int specialDiscount,
-        int giftDiscount
+        EnumMap<DiscountType, Integer> discounts
 ) {
 
     public int calculateTotalDiscountPrice() {
-        return christmasDiscount + weekdaysDiscount + weekendDiscount + specialDiscount;
+        return discounts.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private boolean hasNoDiscount() {
+        return discounts.values().stream()
+                .allMatch(value -> value == 0);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        if (christmasDiscount != 0) {
-            sb.append("크리스마스 디데이 할인: ").append(String.format("%,d원", -christmasDiscount)).append("\n");
-        }
-        if (weekdaysDiscount != 0) {
-            sb.append("평일 할인: ").append(String.format("%,d원", -weekdaysDiscount)).append("\n");
-        }
-        if (weekendDiscount != 0) {
-            sb.append("주말 할인: ").append(String.format("%,d원", -weekendDiscount)).append("\n");
-        }
-        if (specialDiscount != 0) {
-            sb.append("특별 할인: ").append(String.format("%,d원", -specialDiscount)).append("\n");
-        }
-        if (giftDiscount != 0) {
-            sb.append("증정 이벤트: ").append(String.format("%,d원", -giftDiscount));
-        }
-        if (sb.isEmpty()) {
+        if (hasNoDiscount()) {
             return "없음";
         }
 
-        return sb.toString();
+        StringJoiner joiner = new StringJoiner("\n");
+        for (DiscountType type : DiscountType.values()) {
+            int discount = discounts.getOrDefault(type, 0);
+            if (discount == 0) {
+                continue;
+            }
+            joiner.add(type.getKorean() + ": " + String.format("%,d원", -discount));
+        }
+
+        return joiner.toString();
     }
 
 }

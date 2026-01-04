@@ -1,7 +1,9 @@
 package christmas.service;
 
+import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.dto.BenefitResultDto;
+import christmas.dto.GiftDto;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -15,23 +17,22 @@ public class DiscountCalculator {
         this.policies = new ArrayList<>(policies);
     }
 
-    public BenefitResultDto calculate(Order order) {
+    public GiftDto calculateGiftBenefit(Order order) {
+        GiftDiscountPolicy giftDiscountPolicy = new GiftDiscountPolicy();
+        Menu menu = giftDiscountPolicy.discount(order);
+        return new GiftDto(giftDiscountPolicy.type(), menu);
+    }
+
+    public BenefitResultDto calculateDiscounts(Order order) {
+        EnumMap<DiscountType, Integer> discounts = initDiscounts();
         if (order.calculateTotalPrice() < MINIMUM_ORDER_PRICE) {
-            return new BenefitResultDto(0, 0, 0, 0, 0);
+            return new BenefitResultDto(discounts);
         }
 
-        EnumMap<DiscountType, Integer> discounts = initDiscounts();
         for (DiscountPolicy policy : policies) {
             discounts.put(policy.type(), policy.discount(order));
         }
-
-        return new BenefitResultDto(
-                discounts.get(DiscountType.CHRISTMAS),
-                discounts.get(DiscountType.WEEKDAY),
-                discounts.get(DiscountType.WEEKEND),
-                discounts.get(DiscountType.SPECIAL),
-                order.giftDiscount().getPrice()
-        );
+        return new BenefitResultDto(discounts);
     }
 
     private EnumMap<DiscountType, Integer> initDiscounts() {
@@ -41,4 +42,5 @@ public class DiscountCalculator {
         }
         return discounts;
     }
+
 }
