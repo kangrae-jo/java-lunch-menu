@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DiscountCalculator {
 
+    private static final long MINIMUM_ORDER_PRICE = 10_000;
     private final List<DiscountPolicy> policies;
 
     public DiscountCalculator(List<DiscountPolicy> policies) {
@@ -15,6 +16,10 @@ public class DiscountCalculator {
     }
 
     public BenefitResultDto calculate(Order order) {
+        if (order.calculateTotalPrice() < MINIMUM_ORDER_PRICE) {
+            return new BenefitResultDto(0, 0, 0, 0, 0);
+        }
+
         EnumMap<DiscountType, Integer> discounts = initDiscounts();
         for (DiscountPolicy policy : policies) {
             discounts.put(policy.type(), policy.discount(order));

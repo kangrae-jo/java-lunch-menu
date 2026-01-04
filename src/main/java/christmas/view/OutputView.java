@@ -11,39 +11,21 @@ public class OutputView {
         System.out.println("[ERROR] " + msg);
     }
 
-    public void printNoBenefitMsg() {
-        System.out.println("<증정 메뉴>");
-        System.out.println("없음");
-        System.out.println();
-
-        System.out.println("<혜택 내역>");
-        System.out.println("없음");
-        System.out.println();
-    }
-
     public void printBenefitInformation(OrderDto orderDto, GiftDto giftDto, BenefitResultDto benefitDto) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", orderDto.date());
         System.out.println();
-
         printOrderMenus(orderDto);
 
         long totalPrice = orderDto.totalPrice();
-        printTotalPriceBeforeDiscount(totalPrice);
+        printTotalPriceBeforeDiscount(totalPrice);  // 총주문 금액
+        printGiftMenu(giftDto);                     // 증정 메뉴
+        printBenefit(benefitDto);                   // 혜택 내역
 
         int totalDiscountPrice = benefitDto.calculateTotalDiscountPrice();
         int totalBenefitPrice = totalDiscountPrice + benefitDto.giftDiscount();
-        if (totalPrice < 10_000) {
-            printNoBenefitMsg();
-            totalDiscountPrice = 0;
-            totalBenefitPrice = 0;
-        } else {
-            printGiftMenu(giftDto);
-            printBenefit(benefitDto);
-        }
-
-        printTotalBenefitPrice(totalBenefitPrice);
-        printTotalPriceAfterDiscount(totalPrice, totalDiscountPrice);
-        printBadge(totalBenefitPrice);
+        printTotalBenefitPrice(totalBenefitPrice);                      // 총 혜택 금액
+        printTotalPriceAfterDiscount(totalPrice, totalDiscountPrice);   // 할인 후 예상 결제 금액
+        printBadge(totalBenefitPrice);                                  // 12월 이벤트 배지
     }
 
     private void printOrderMenus(OrderDto orderDto) {
